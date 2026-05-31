@@ -1,14 +1,43 @@
-Binaries
-DerivedDataCache
-Intermediate
-Saved
-.vscode
-.vs
+# === Unreal Engine Генерируемые папки ===
+Binaries/
+DerivedDataCache/
+Intermediate/
+Saved/
+Build/
+
+# === Исключения для ассетов и локальных разработчиков ===
+Content/Developers/
+Saved/Autosaves/
+Saved/Collections/
+Saved/Config/Windows/EditorPerProjectUserSettings.ini
+
+# === IDE и инструменты сборки (VS 2022 / VS Code / Rider) ===
+.vs/
+/.vs/
+.vscode/
+.idea/
 *.VC.db
+*.VC.opendb
 *.opensdf
 *.opendb
 *.sdf
-*.sln
 *.suo
+*.vsconfig
+shadertoolsconfig.json
+Plugins/VisualStudioTools/
+
+# === Сгенерированные файлы решений (Будут созданы заново через uproject) ===
+*.sln
+*.slnx
 *.xcodeproj
 *.xcworkspace
+Automation_*.slnx
+
+# === Логи и дампы ===
+*.log
+*.dmp
+*.tmp
+
+# === Системный мусор ===
+.DS_Store
+Thumbs.db
