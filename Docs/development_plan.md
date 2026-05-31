@@ -241,7 +241,7 @@ Private/
 | `BlockAll` / `OverlapOnlyPawn` | Стены graybox          | 0       |
 
 
-- [ ] **COL.0.** [C++/Редактор] Модуль 0: завести trace-каналы и collision presets в `DefaultEngine.ini` / Project Settings
+- [x] **COL.0.** [C++/Редактор] Модуль 0: завести trace-каналы и collision presets в `DefaultEngine.ini` / Project Settings
 - [ ] **COL.1.** [C++/Редактор] Модуль 0: таблица «кто с кем блокируется / overlap» → `LEARNING.md`
 - [ ] **COL.2.** [C++] Модуль 4: interaction trace только на `ECC_Deb_Interactable`
 - [ ] **COL.3.** [C++] Модуль 6: пропы — `ECC_Deb_Prop`, корректный `CollisionEnabled` при grab/sleep
@@ -296,7 +296,7 @@ Private/
 
 ### Коллизии
 
-- [ ] **0.5.** [C++/Редактор] Trace-каналы и object types (см. COL.0–COL.1)
+- [x] **0.5.** [C++/Редактор] Trace-каналы и object types (см. COL.0–COL.1)
 - [ ] **0.6.** [Редактор] Collision presets: `Deb_Pawn`, `Deb_WorldStatic`
 
 ### Input — клавиатура + геймпад
