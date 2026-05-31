@@ -297,7 +297,7 @@ Private/
 ### Коллизии
 
 - [x] **0.5.** [C++/Редактор] Trace-каналы и object types (см. COL.0–COL.1)
-- [ ] **0.6.** [Редактор] Collision presets: `Deb_Pawn`, `Deb_WorldStatic`
+- [x] **0.6.** [Редактор] Collision presets: `Deb_Pawn`, `Deb_WorldStatic`
 
 ### Input — клавиатура + геймпад
 
