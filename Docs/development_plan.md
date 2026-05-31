@@ -282,10 +282,10 @@ Private/
 
 ### Проект
 
-- [ ] **0.1.** [Редактор] C++ проект **Debris**, модуль `Debris` (При создании проекта: Blank проект, scalable графика, C++ пресет)
+- [x] **0.1.** [Редактор] C++ проект **Debris**, модуль `Debris` (При создании проекта: Blank проект, scalable графика, C++ пресет)
 - [ ] **0.2.** Структура каталогов C++ и `Content/Debris/` (см. раздел выше)
 - [ ] **0.3.** [C++] `Debris.Build.cs`: `EnhancedInput`, `InputCore`
-- [ ] **0.4.** [Git] `.gitignore` по расширенному списку (эталон: `Debris_UE_pre5_8/.gitignore` + дополнения ниже); проверить `git status` — в индексе только `Content/`, `Config/`, `Source/`, `*.uproject`, docs
+- [x] **0.4.** [Git] `.gitignore` по расширенному списку (эталон: `Debris_UE_pre5_8/.gitignore` + дополнения ниже); проверить `git status` — в индексе только `Content/`, `Config/`, `Source/`, `*.uproject`, docs
   - **UE:** `Binaries/`, `Intermediate/`, `Saved/`, `DerivedDataCache/`, `Build/*`
   - **IDE:** `.vs/`, `.vscode/`, `.idea/`
   - **Visual Studio:** `*.VC.db`, `*.VC.opendb`, `*.suo`, `*.opensdf`, `*.sdf`, `.vsconfig`
