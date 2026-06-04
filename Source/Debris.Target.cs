@@ -9,7 +9,8 @@ public class DebrisTarget : TargetRules
 	{
 		Type = TargetType.Game;
 		DefaultBuildSettings = BuildSettingsVersion.V6;
+        IncludeOrderVersion = EngineIncludeOrderVersion.Unreal5_7;
 
-		ExtraModuleNames.AddRange( new string[] { "Debris" } );
+        ExtraModuleNames.AddRange( new string[] { "Debris" } );
 	}
 }
