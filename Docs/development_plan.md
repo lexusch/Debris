@@ -17,9 +17,8 @@
 > ИИ-наставник читает его **первым** при начале каждой сессии.
 
 **Текущий модуль:** 0 — Фундамент  
-**Последний завершённый обязательный пункт:** 0.7 — `ADebPlayerCharacter`: капсула, movement  
-**Следующий шаг:** 0.8 — Input Actions
-**Дата обновления:** 31.05.2026 22:42 МСК
+**Последний завершённый обязательный пункт:** 0.10
+**Следующий шаг:** 0.11
 
 **Быстрый статус модулей:**
 
@@ -342,7 +341,7 @@ Private/
 
 - [x] **0.7.** [C++] `ADebPlayerCharacter` — наследник `ACharacter`; капсула и movement уже в базовом классе; не добавлять камеру и input здесь (это модули 1 и 0.11).
   > ИИ: объяснить иерархию ACharacter → APawn → AActor; зачем наследоваться от ACharacter, а не AActor.
-- [x] **0.8.** [Редактор] Input Actions: `IA_DebMove` (Vector2D), `IA_DebLook` (Vector2D), `IA_DebJump` (Digital) (Дополнительно - IA_DebFire)
+- [x] **0.8.** [Редактор] Input Actions: `IA_DebMove` (Vector2D), `IA_DebLook` (Vector2D), `IA_DebJump` (Digital)
   > ИИ: объяснить разницу между старой Input System и Enhanced Input; что такое Input Action и зачем Vector2D для Move/Look.
 - [x] **0.9.** [Редактор] `IMC_DebDefault`: **KB** — WASD, мышь, Space
 - [x] **0.10.** [Редактор] `IMC_DebDefault`: **геймпад** — Left Stick Move, Right Stick Look, A/Cross Jump, RT/R2 — задел Fire (модуль 7)
@@ -376,11 +375,11 @@ Private/
 
 **Результат в PIE:** персонаж ходит с инерцией; спринт/присед работают; камера прикреплена от первого лица; правый стик геймпада управляет взглядом с dead zone.
 
-**Новые концепты:** `UCameraComponent`, `USpringArmComponent`, `UCurveFloat`, `bUseControllerRotationYaw`, First Person Rendering, `UCharacterMovementComponent` параметры.
+**Новые концепты:** `UCameraComponent`, `USpringArmComponent`, `UCurveFloat`, `bUseControllerRotationYaw`, First Person Rendering, `UCharacterMovementComponent` параметры, camera offset lean, `FInterpTo`.
 
 **Входные условия (обязательны [x]):** 0.7, 0.11, 0.13, 0.14, 0.18.
 
-**Блокирует:** 7.18 (obstruction trace), 11.12 (visibility points).
+**Блокирует:** 7.18 (obstruction trace), 11.12 (visibility points), 11.20 (тёмные зоны + фонарик).
 
 ---
 
@@ -391,16 +390,19 @@ Private/
 - [ ] **1.4.** [C++] Спринт (`IA_DebSprint`) и присед (`IA_DebCrouch`) + ceiling check перед вставанием
   > ИИ: объяснить ceiling check через SweepSingleByChannel; почему без него персонаж застрянет в потолке.
 - [ ] **1.5.** [C++] «Грузное» движение: настройка `MaxWalkSpeed`, `MaxAcceleration`, `BrakingDecelerationWalking`, `GroundFriction`
+- [ ] **1.5b.** [C++/Редактор] Наклоны (Lean): `IA_DebLeanLeft` / `IA_DebLeanRight` в `IMC_DebDefault` — **Q/E + LB/RB (геймпад)**, тип Digital (Hold); смещение `UCameraComponent` по Y (макс. ~50 см) + camera roll (~12°); `SweepSingleByChannel` вбок — нельзя наклониться в стену; плавный `FInterpTo` для возврата камеры
+  > ИИ: объяснить почему lean реализуется через camera offset, а не поворот капсулы; как SweepSingleByChannel отличается от LineTrace; связь с weapon obstruction (1.8) — при наклоне проверять obstruction со стороны наклона.
 - [ ] **1.6.** [Редактор] **Кривые стиков:** `Curve_DebMoveResponse`, `Curve_DebLookResponse` — dead zone, чувствительность (UCurveFloat в редакторе кривых)
   > ИИ: объяснить что такое dead zone и почему без него стик «дрейфует»; показать как читать UCurveFloat в C++.
 - [ ] **1.7.** [C++] Применение curve к Look/Move для геймпада через `FRichCurve::Eval()`
 - [ ] **1.8.** [C++] Задел `WeaponObstructionTrace` — LineTrace вперёд от камеры → модуль 7
-- [ ] **1.9.** [C++] `UDebPlayerVisibilityComponent`: точки `Head`, `Body` — используются NPC perception в модуле 11
+- [ ] **1.9.** [C++] `UDebPlayerVisibilityComponent`: точки `Head`, `Body` — используются NPC perception в модуле 11; lean state смещает точку `Head` вбок — при наклоне игрок выглядывает лишь частично
 - [ ] **1.10.** [Опционально] Покачивание камеры при ходьбе (camera bob через Timeline или Curve)
+- [ ] **1.11.** [Опционально][C++/Редактор] Фонарик: `USpotLightComponent` на `head` socket; `IA_DebFlashlight` — **F / D-Pad Down (геймпад)**, тип Digital (Toggle); настройки: `AttenuationRadius`, `InnerConeAngle`, `OuterConeAngle`; задел для модуля 11: включённый фонарик увеличивает `SightRadius` NPC в тёмных зонах (см. 11.20)
 
 **Graybox:** расширить до `L_Deb_Building_Graybox` — несколько комнат с потолками под crouch/stand, укрытия.
 
-**Критерий готовности:** sprint/crouch; геймпад с кривыми и dead zone; visibility points на персонаже.
+**Критерий готовности:** sprint/crouch/lean (Q/E + LB/RB); геймпад с кривыми и dead zone; visibility points с учётом lean; фонарик переключается.
 
 ---
 
@@ -467,7 +469,7 @@ Private/
 
 **Входные условия (обязательны [x]):** 0.5 (COL.2 готов), 0.7, 0.11.
 
-**Блокирует:** 6.2 (grab через interaction), 7.16 (подбор оружия), 11.5 (NPC видит оружие).
+**Блокирует:** 6.2 (grab через interaction), 7.16 (подбор оружия), 11.5 (NPC видит оружие), 12.9b (лифт → PCG regenerate).
 
 ---
 
@@ -479,9 +481,12 @@ Private/
 - [ ] **4.5.** [C++] Заготовка подсказки взаимодействия — строка для HUD (UI → модуль 13)
 - [ ] **4.6.** [Редактор] Input: `IA_DebInteract` — **E / X (геймпад)** в `IMC_DebDefault`
 
-**Graybox:** 2–3 interactable объекта на `L_Deb_Building_Graybox`.
+- [ ] **4.7.** [C++/Blueprint] `ADebElevatorActor`: кнопка вызова → анимация дверей (`Timeline`) → entry trigger (`UBoxComponent` overlap); кнопка этажа внутри → `EDebWinCondition::Escaped` в `ADebGameMode`; задел интеграции с PCG — `RegenerateLevel(NewSeed)` в модуле 12
+  > ИИ: объяснить почему лифт — один Actor с несколькими Interactable-компонентами, а не несколько отдельных акторов; как Timeline управляет анимацией дверей без AnimBP.
 
-**Критерий готовности:** trace находит объект; взаимодействие срабатывает по нажатию; подсказка готова к передаче в HUD.
+**Graybox:** 2–3 interactable объекта + лифт на `L_Deb_Building_Graybox`.
+
+**Критерий готовности:** trace находит объект; взаимодействие срабатывает по нажатию; лифт вызывается и открывает двери; подсказка готова к передаче в HUD.
 
 ---
 
@@ -701,6 +706,9 @@ Private/
 - [ ] **10.12.** [Опционально] Death-poses через Control Rig (поза трупа по ситуации)
 - [ ] **10.13.** [C++] Ragdoll sleep через N сек: фиксировать pose, `SetSimulatePhysics(false)`, tick off
 - [ ] **10.14.** [Опционально][C++] `UPhysicalAnimationComponent` fallback если Control Rig Physics на 5.7.4 нестабилен
+- [ ] **10.15.** [Опционально][Редактор/C++] Foot IK для NPC: Control Rig → Two Bone IK на ногах; ступни ставятся на поверхность при движении по неровному полу; `FFootIKData` (позиция, нормаль) обновляется через LineTrace вниз от каждой кости стопы раз в такт
+- [ ] **10.16.** [Опционально][Редактор] Motion Matching для NPC: включить плагин `Pose Search`; собрать `UPoseSearchDatabase` с анимациями (Idle, Walk, Run, Alert, Crouch) с аннотациями траектории; заменить Blend Spaces на ноду `Motion Matching` в AnimGraph; `FPoseSearchTrajectoryData` — прогноз траектории из `UCharacterMovementComponent`
+  > ИИ: объяснить чем Motion Matching отличается от Blend Space: вместо ручных переходов система сама ищет наиболее подходящую позу по траектории и скорости; Pose Search plugin доступен с UE 5.4+ как production-ready.
 
 **Graybox:** dummy NPC на `L_Deb_CombatLane` — тест: стрельба → hit zones → ragdoll; **без Behavior Tree**.
 
@@ -796,6 +804,7 @@ Private/
 - [ ] **12.7.** [Редактор] PCG spawns: `PlayerStart`, NPC spawn points, weapon pickup, patrol spline points
 - [ ] **12.8.** [C++] `ADebGameMode`: параметры сложности (кол-во комнат, 1–4 NPC) передаются в PCG graph через параметры
 - [ ] **12.9.** [C++] После PCG generate: validate NavMesh, инициализировать patrol points, установить `AliveHunterCount`
+- [ ] **12.9b.** [C++] Интеграция лифта с PCG: `ADebElevatorActor::OnPlayerEscaped` → `ADebGameMode::RegenerateLevel(NewSeed)`; новый seed → пересборка PCG-графа → новый этаж → spawn игрока у нового `PlayerStart`
 - [ ] **12.10.** [Редактор] Сравнить PCG vs ручной Graybox по gameplay; PCG — default для demo
 - [ ] **12.11.** [Опционально][C++] Runtime regenerate по seed через dev menu (консольная команда `DebSeed [N]`)
 - [ ] **12.12.** [Опционально] Production PCG-граф: процедурные варианты здания (офис, склад, больница)
@@ -1073,6 +1082,7 @@ Private/
 | Пункт | Описание |
 |-------|----------|
 | 1.10 | Camera bob при ходьбе |
+| 1.11 | Фонарик (USpotLightComponent, toggle) |
 | 3.5 | Визуальные эффекты ранения |
 | 5.9 | Production-библиотека Substrate-материалов |
 | 6.7, 6.8 | Классы веса пропов, штабелирование |
@@ -1080,6 +1090,8 @@ Private/
 | 9.6 | Структурный коллапс при разрушении |
 | 10.12 | Control Rig death poses |
 | 10.14 | UPhysicalAnimationComponent fallback |
+| 10.15 | Foot IK для NPC (Two Bone IK, LineTrace) |
+| 10.16 | Motion Matching для NPC (Pose Search plugin) |
 | 11.10, 11.11, 11.20 | EQS укрытия, групповая тревога, зоны тьмы |
 | 11.22 | Aim assist tuning |
 | 12.11, 12.12 | Runtime PCG regen, production граф |
@@ -1109,6 +1121,8 @@ Private/
 **Live Coding + новый UCLASS** — после добавления нового `UCLASS` / `USTRUCT` нужна **полная** перекомпиляция, не hot reload.
 
 **PSO hitch при первой стрельбе** — модули 17.1–17.6; прогон всех VFX/материалов до shipping build.
+
+**MSBuild SetEnv ошибка (UE 5.5+)** — `$(IncludePath)` превышает лимит переменных среды Windows; `Ctrl+Shift+B` падает с `MSB4018: SetEnv`. Решение: в `Microsoft.Cpp.Current.targets` найти блок `<SetEnv>` и установить `Value=""`. Обновления VS могут сбросить патч — проверять после каждого обновления IDE. Live Coding и сборки из редактора UE используют UBT напрямую и обходят MSBuild — работают без патча.
 
 **После миграции 5.7.4 → 5.8** — пересобрать C++ (VS 2022), запустить conversion wizard; пересобрать PSO cache и NavMesh; проверить deprecated API в Control Rig, PCG, Substrate; smoke-тест по разделу «Миграция на UE 5.8».
 
