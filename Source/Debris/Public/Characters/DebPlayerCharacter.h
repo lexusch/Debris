@@ -35,8 +35,8 @@ protected:
 	TObjectPtr<UInputAction> JumpAction;
 
 	void Move(const FInputActionValue& Value);
-	void Look(const FInputActionValue& Value);
 	void StartJump(const FInputActionValue& Value);
+	void Look(const FInputActionValue& Value);
 
 public:	
 	// Called every frame

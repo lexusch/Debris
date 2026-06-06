@@ -345,9 +345,9 @@ Private/
   > ИИ: объяснить разницу между старой Input System и Enhanced Input; что такое Input Action и зачем Vector2D для Move/Look.
 - [x] **0.9.** [Редактор] `IMC_DebDefault`: **KB** — WASD, мышь, Space
 - [x] **0.10.** [Редактор] `IMC_DebDefault`: **геймпад** — Left Stick Move, Right Stick Look, A/Cross Jump, RT/R2 — задел Fire (модуль 7)
-- [ ] **0.11.** [C++] `AddMappingContext`; `BindAction` Move / Look / Jump
+- [x] **0.11.** [C++] `AddMappingContext`; `BindAction` Move / Look / Jump
   > ИИ: объяснить где вызывать AddMappingContext (BeginPlay через PlayerController или Character); почему важно передавать Priority.
-- [ ] **0.12.** [C++] Обработка `Look`: и мышь, и правый стик (Enhanced Input Vector2D)
+- [x] **0.12.** [C++] Обработка `Look`: и мышь, и правый стик (Enhanced Input Vector2D)
 - [ ] **0.13.** [Blueprint] `BP_DebPlayer` — наследник `ADebPlayerCharacter`; назначить `DefaultPawnClass` в GameMode
 
 ### GameMode
