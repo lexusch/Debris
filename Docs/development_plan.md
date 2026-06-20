@@ -2,10 +2,9 @@
 
 **Репозиторий:** https://github.com/lexusch/Debris
 
-**Движок:** Unreal Engine **5.7.4** (основная разработка)  
-**Миграция:** на **stable UE 5.8** после официального релиза — тот же проект `Debris`, без повторного «с нуля»
+**Движок:** Unreal Engine **5.8** (стабильный релиз, 17 июня 2026; последний крупный релиз линейки UE5 перед UE6)
 
-**IDE:** Visual Studio **2022** (проверенный toolchain; VS 2026 — не использовать до стабилизации)
+**IDE:** Visual Studio **2022** (проверенный toolchain; VS 2026 — поддержка под UE 5.8 пока не подтверждена официально, не использовать как основную IDE)
 
 **Проект:** `Debris` · модуль C++ `Debris` · API `DEBRIS_API` · префикс классов `Deb`
 
@@ -17,14 +16,14 @@
 > ИИ-наставник читает его **первым** при начале каждой сессии.
 
 **Текущий модуль:** 0 — Фундамент  
-**Последний завершённый обязательный пункт:** 0.10
-**Следующий шаг:** 0.11
+**Последний завершённый обязательный пункт:** нет (проект пересоздаётся с нуля на UE 5.8)
+**Следующий шаг:** 0.1
 
 **Быстрый статус модулей:**
 
 | Модуль | Название | Статус |
 |--------|----------|--------|
-| 0 | Фундамент | 🔄 В процессе |
+| 0 | Фундамент | ⬜ Не начат |
 | 1 | Перемещение и камера FPS | ⬜ Не начат |
 | 2 | Игровой каркас | ⬜ Не начат |
 | 3 | Здоровье и урон | ⬜ Не начат |
@@ -36,10 +35,10 @@
 | 9 | Разрушаемые объекты | ⬜ Не начат |
 | 10 | NPC: тело, Control Rig, ragdoll | ⬜ Не начат |
 | 11 | NPC: perception, stealth, ИИ | ⬜ Не начат |
-| 12 | PCG — процедурные интерьеры | ⬜ Не начат |
-| 13 | UI: HUD, меню, настройки | ⬜ Не начат |
-| 14 | Продвинутый звук (SFX) | ⬜ Не начат |
-| 15 | Динамический саундтрек | ⬜ Не начат |
+| 12 | UI: HUD, меню, настройки | ⬜ Не начат |
+| 13 | Продвинутый звук (SFX) | ⬜ Не начат |
+| 14 | Динамический саундтрек | ⬜ Не начат |
+| 15 | PCG — процедурные интерьеры | ⬜ Не начат |
 | 16 | Сохранения | ⬜ Не начат |
 | 17 | Производительность, PSO, отладка | ⬜ Не начат |
 | 18 | Финальная полировка + Megascans | ⬜ Не начат |
@@ -50,7 +49,7 @@ _Статусы: ✅ Завершён · 🔄 В процессе · ⬜ Не н
 
 ## Характер проекта
 
-Весь план — **учебно-практический**: каждый модуль — освоение технологий UE и шаг к играбельному demo. Отдельных фаз «preview / production / после релиза» нет — один чеклист **0→18** на UE 5.7.4. Единственная метка scope — **`[Опционально]`**: пункт можно отложить без блокировки критерия готовности модуля.
+Весь план — **учебно-практический**: каждый модуль — освоение технологий UE и шаг к играбельному demo. Отдельных фаз «preview / production / после релиза» нет — один чеклист **0→18** на UE 5.8. Единственная метка scope — **`[Опционально]`**: пункт можно отложить без блокировки критерия готовности модуля.
 
 ---
 
@@ -62,29 +61,17 @@ _Статусы: ✅ Завершён · 🔄 В процессе · ⬜ Не н
 
 **Игровой процесс:** персонаж на процедурно-сгенерированном этаже здания, 1–4 NPC ищут игрока. Задача — добраться до лифта: вызвать, дождаться, зайти, нажать кнопку, дождаться закрытия дверей → генерация нового PCG-этажа. Стелс → вспышка боя → тишина.
 
-**PCG** — неотъемлемая часть геймплея, но **после** основных механик → модуль 12.
+**PCG** — неотъемлемая часть геймплея, но **после** основных механик → модуль 15.
 
-**Направления обучения:** C++, Blueprint, Niagara, AI, Modeling, Animation, Sound, MetaSounds, UI, Chaos, Physics, Substrate (5), Control Rig (10), PCG (12), Metahuman.
+**Направления обучения:** C++, Blueprint, Niagara, AI, Modeling, Animation, Sound, MetaSounds, UI, Chaos, Physics, Substrate (5), Control Rig (10), PCG (15), Metahuman.
 
 ---
 
 ## Маршрут разработки
 
-Один проход модулей **0→18** на **UE 5.7.4**.
+Один проход модулей **0→18** на **UE 5.8**.
 
 После каждого модуля: чекбоксы + запись в `LEARNING.md` · git-коммит `Debris: модуль N — …`
-
-### Миграция на UE 5.8 (когда выйдет stable)
-
-Справочный чеклист — не отдельная фаза плана:
-
-1. Git-тег или ветка `pre-ue58-migration` на текущем состоянии 5.7.4.
-2. Открыть копию проекта в установленном **stable UE 5.8**; выполнить conversion wizard движка.
-3. Пересобрать C++ (Visual Studio 2022; `.sln` после регенерации проекта).
-4. Smoke-тест: модули 0, 7–8, 11, 12, 17 (input, hitscan, AI, PCG, PSO).
-5. Пересобрать PSO cache и NavMesh на PCG-карте.
-6. Обновить ссылки в `LEARNING.md` с документации 5.7.4 на 5.8.
-7. Зафиксировать грабли миграции в `LEARNING.md`; переносить **паттерны**, не слепой copy-paste кода с 5.7.4.
 
 ---
 
@@ -104,15 +91,15 @@ _Статусы: ✅ Завершён · 🔄 В процессе · ⬜ Не н
 | 9  | Разрушаемые объекты |
 | 10 | NPC: тело, Control Rig, ragdoll |
 | 11 | NPC: perception, stealth, ИИ |
-| 12 | PCG — процедурные интерьеры (часть геймплея) |
-| 13 | UI: HUD, меню, настройки, загрузка |
-| 14 | Продвинутый звук (SFX) |
-| 15 | Динамический саундтрек |
+| 12 | UI: HUD, меню, настройки, загрузка |
+| 13 | Продвинутый звук (SFX) |
+| 14 | Динамический саундтрек |
+| 15 | PCG — процедурные интерьеры (часть геймплея) |
 | 16 | Сохранения |
 | 17 | Производительность, PSO, отладка |
 | 18 | Финальная полировка + Megascans (FAB) |
 
-**Жёсткие зависимости:** оружие (7) → hitscan (8) → destructibles (9) · тело NPC (10) → ИИ (11) · **механики (0–11) → PCG (12)** · polish (18) — **последний**.
+**Жёсткие зависимости:** оружие (7) → hitscan (8) → destructibles (9) · тело NPC (10) → ИИ (11) · **механики (0–11) → PCG (15)** · UI/звук/музыка (12–14) тестируются на ручном graybox и переносятся на PCG-карту в модуле 15 · сохранения (16) идут после PCG, т.к. сохраняют PCG seed · polish (18) — **последний**.
 
 ---
 
@@ -127,7 +114,7 @@ _Статусы: ✅ Завершён · 🔄 В процессе · ⬜ Не н
 | **v4** | Модуль 7–8 | `L_Deb_CombatLane` | Полигон стрельбы; мишени с `IDebDamageable`; укрытия; тест pistol/SMG/shotgun |
 | **v5** | Модуль 9 | CombatLane + destructible-секция | Chaos GC стены/объекты; проверка hitscan → fracture |
 | **v6** | Модуль 10–11 | Graybox (полный этаж) | Patrol points, dark zones, choke points; 1–4 NPC; оружие на полу |
-| **v7** | Модуль 12 | `L_Deb_PCG_Demo` | PCG-layout как **основная demo-карта**; seed; NavMesh; spawner'ы из GameMode |
+| **v7** | Модуль 15 | `L_Deb_PCG_Demo` | PCG-layout как **основная demo-карта**; seed; NavMesh; spawner'ы из GameMode |
 | **v8** | Модуль 18 | `L_Deb_Building_Final` | **Quixel Megascans (FAB):** art pass поверх каркаса v7; Lumen; collision pass |
 
 > Graybox-геометрию не выбрасывать — blockout остаётся под Megascans-слоями или как reference.
@@ -278,7 +265,7 @@ Private/
 - [ ] **COL.4.** [C++] Модуль 7–8: obstruction и hitscan — отдельные trace channels; ignore owner/wielder
 - [ ] **COL.5.** [C++/Редактор] Модуль 10: Physics Asset NPC — hitbox bones block `ECC_Deb_Weapon`, не блокируют pawn movement
 - [ ] **COL.6.** [C++/Редактор] Модуль 9: destructible — корректная collision после fracture; debris не блокирует pawn навсегда
-- [ ] **COL.7.** [C++] Модуль 12: NavMesh + collision после PCG generation; rebuild при смене seed
+- [ ] **COL.7.** [C++] Модуль 15: NavMesh + collision после PCG generation; rebuild при смене seed
 - [ ] **COL.8.** [Редактор] Модуль 18: Megascans mesh — simplified collision; без дыр в стенах
 
 ---
@@ -294,9 +281,9 @@ Private/
 | Perception | Origin на `head`; trace к Head + Body (OR) |
 | NPC | **Сначала** тело + CR/ragdoll (10), **потом** BT и stealth (11) |
 | Destructibles | **После hitscan (8)** — модуль 9 |
-| PCG | **После механик (0–11)** — модуль 12; seed-driven demo |
-| Input | KB + **геймпад с модуля 0**; кривые стиков (1); aim assist (11/13) |
-| PSO | Сбор в dev; runtime-прогрев на loading screen (13, 17) |
+| PCG | **После механик (0–11) и UI/звука/музыки (12–14)** — модуль 15; seed-driven demo |
+| Input | KB + **геймпад с модуля 0**; кривые стиков (1); aim assist (11/12) |
+| PSO | Сбор в dev; runtime-прогрев на loading screen (12, 17) |
 | Perf (Основной ПК) | ≥ 60 FPS @ **1440p** — RTX 5070, i5-14600KF, 32 GB DDR5; пресет `Deb_High1440p` |
 | Perf (Дополнительный ПК) | ≥ 60 FPS @ **1080p** — RTX 3060, i5-12400F, 32 GB DDR4; пресет `Deb_High1080p` |
 | Perf (Портативный ПК) | Steam Deck, пресет `Deb_SteamDeck`; ≥ 30 FPS (цель 40+) |
@@ -320,10 +307,10 @@ Private/
 
 ### Проект
 
-- [x] **0.1.** [Редактор] C++ проект **Debris**, модуль `Debris` (Blank проект, scalable графика, C++ пресет)
-- [x] **0.2.** Структура каталогов C++ и `Content/Debris/` (см. раздел выше)
-- [x] **0.3.** [C++] `Debris.Build.cs`: `EnhancedInput`, `InputCore`
-- [x] **0.4.** [Git] `.gitignore` по расширенному списку; проверить `git status` — в индексе только `Content/`, `Config/`, `Source/`, `*.uproject`, docs
+- [ ] **0.1.** [Редактор] C++ проект **Debris**, модуль `Debris` (Blank проект, scalable графика, C++ пресет)
+- [ ] **0.2.** Структура каталогов C++ и `Content/Debris/` (см. раздел выше)
+- [ ] **0.3.** [C++] `Debris.Build.cs`: `EnhancedInput`, `InputCore`
+- [ ] **0.4.** [Git] `.gitignore` по расширенному списку; проверить `git status` — в индексе только `Content/`, `Config/`, `Source/`, `*.uproject`, docs
   * **UE:** `Binaries/`, `Intermediate/`, `Saved/`, `DerivedDataCache/`, `Build/*`
   * **IDE:** `.vs/`, `.vscode/`, `.idea/`
   * **Visual Studio:** `*.VC.db`, `*.VC.opendb`, `*.suo`, `*.opensdf`, `*.sdf`, `.vsconfig`
@@ -334,20 +321,20 @@ Private/
 
 ### Коллизии
 
-- [x] **0.5.** [C++/Редактор] Trace-каналы и object types (см. COL.0–COL.1)
-- [x] **0.6.** [Редактор] Collision presets: `Deb_Pawn`, `Deb_WorldStatic`
+- [ ] **0.5.** [C++/Редактор] Trace-каналы и object types (см. COL.0–COL.1)
+- [ ] **0.6.** [Редактор] Collision presets: `Deb_Pawn`, `Deb_WorldStatic`
 
 ### Input — клавиатура + геймпад
 
-- [x] **0.7.** [C++] `ADebPlayerCharacter` — наследник `ACharacter`; капсула и movement уже в базовом классе; не добавлять камеру и input здесь (это модули 1 и 0.11).
+- [ ] **0.7.** [C++] `ADebPlayerCharacter` — наследник `ACharacter`; капсула и movement уже в базовом классе; не добавлять камеру и input здесь (это модули 1 и 0.11).
   > ИИ: объяснить иерархию ACharacter → APawn → AActor; зачем наследоваться от ACharacter, а не AActor.
-- [x] **0.8.** [Редактор] Input Actions: `IA_DebMove` (Vector2D), `IA_DebLook` (Vector2D), `IA_DebJump` (Digital)
+- [ ] **0.8.** [Редактор] Input Actions: `IA_DebMove` (Vector2D), `IA_DebLook` (Vector2D), `IA_DebJump` (Digital)
   > ИИ: объяснить разницу между старой Input System и Enhanced Input; что такое Input Action и зачем Vector2D для Move/Look.
-- [x] **0.9.** [Редактор] `IMC_DebDefault`: **KB** — WASD, мышь, Space
-- [x] **0.10.** [Редактор] `IMC_DebDefault`: **геймпад** — Left Stick Move, Right Stick Look, A/Cross Jump, RT/R2 — задел Fire (модуль 7)
-- [x] **0.11.** [C++] `AddMappingContext`; `BindAction` Move / Look / Jump
+- [ ] **0.9.** [Редактор] `IMC_DebDefault`: **KB** — WASD, мышь, Space
+- [ ] **0.10.** [Редактор] `IMC_DebDefault`: **геймпад** — Left Stick Move, Right Stick Look, A/Cross Jump, RT/R2 — задел Fire (модуль 7)
+- [ ] **0.11.** [C++] `AddMappingContext`; `BindAction` Move / Look / Jump
   > ИИ: объяснить где вызывать AddMappingContext (BeginPlay через PlayerController или Character); почему важно передавать Priority.
-- [x] **0.12.** [C++] Обработка `Look`: и мышь, и правый стик (Enhanced Input Vector2D)
+- [ ] **0.12.** [C++] Обработка `Look`: и мышь, и правый стик (Enhanced Input Vector2D)
 - [ ] **0.13.** [Blueprint] `BP_DebPlayer` — наследник `ADebPlayerCharacter`; назначить `DefaultPawnClass` в GameMode
 
 ### GameMode
@@ -416,7 +403,7 @@ Private/
 
 **Входные условия (обязательны [x]):** 0.14, 0.15, 0.16, 0.17.
 
-**Блокирует:** 11.0 (GameState для AlertActive), 12.6 (seed в GameMode), 13.9 (переходы через GameInstance), 16.1 (SaveGame через GameInstance).
+**Блокирует:** 11.0 (GameState для AlertActive), 15.6 (seed в GameMode), 12.9 (переходы через GameInstance), 16.1 (SaveGame через GameInstance).
 
 ---
 
@@ -469,7 +456,7 @@ Private/
 
 **Входные условия (обязательны [x]):** 0.5 (COL.2 готов), 0.7, 0.11.
 
-**Блокирует:** 6.2 (grab через interaction), 7.16 (подбор оружия), 11.5 (NPC видит оружие), 12.9b (лифт → PCG regenerate).
+**Блокирует:** 6.2 (grab через interaction), 7.16 (подбор оружия), 11.5 (NPC видит оружие), 15.9b (лифт → PCG regenerate).
 
 ---
 
@@ -481,7 +468,7 @@ Private/
 - [ ] **4.5.** [C++] Заготовка подсказки взаимодействия — строка для HUD (UI → модуль 13)
 - [ ] **4.6.** [Редактор] Input: `IA_DebInteract` — **E / X (геймпад)** в `IMC_DebDefault`
 
-- [ ] **4.7.** [C++/Blueprint] `ADebElevatorActor`: кнопка вызова → анимация дверей (`Timeline`) → entry trigger (`UBoxComponent` overlap); кнопка этажа внутри → `EDebWinCondition::Escaped` в `ADebGameMode`; задел интеграции с PCG — `RegenerateLevel(NewSeed)` в модуле 12
+- [ ] **4.7.** [C++/Blueprint] `ADebElevatorActor`: кнопка вызова → анимация дверей (`Timeline`) → entry trigger (`UBoxComponent` overlap); кнопка этажа внутри → `EDebWinCondition::Escaped` в `ADebGameMode`; задел интеграции с PCG — `RegenerateLevel(NewSeed)` в модуле 15
   > ИИ: объяснить почему лифт — один Actor с несколькими Interactable-компонентами, а не несколько отдельных акторов; как Timeline управляет анимацией дверей без AnimBP.
 
 **Graybox:** 2–3 interactable объекта + лифт на `L_Deb_Building_Graybox`.
@@ -494,66 +481,83 @@ Private/
 
 **Цель:** физматериалы связывают поверхность с поведением (звук, декаль, VFX); знакомство с Substrate.
 
-**Результат в PIE:** шаг по металлу звучит иначе чем по бетону; sprint громче walk; 1–2 Substrate-материала на graybox.
+**Результат в PIE:** шаг по металлу звучит иначе чем по бетону; sprint громче walk; для каждого базового материала готовы звук шага, звук/декаль попадания и заготовка реакции на удар; 1–2 Substrate-материала на graybox.
 
 **Новые концепты:** `UPhysicalMaterial`, foot trace pattern, `USoundCue`, `UDataTable` для маппинга материал→звук, Substrate шейдерная модель.
 
 **Входные условия (обязательны [x]):** 0.5, 0.6, 1.4 (sprint/crouch для разных звуков).
 
-**Блокирует:** 6.4 (звук столкновений пропов), 8.8 (эффекты попаданий по physmat), 9.5 (VFX разрушений по physmat), 14.3 (spatial audio).
+**Блокирует:** 6.4 (звук столкновений пропов от physmat + массы), 8.8 (эффекты попаданий по physmat), 9.5 (VFX разрушений по physmat), 13.3 (spatial audio).
 
 ---
 
-### Физматериалы и звук
+### Базовые физматериалы
 
-- [ ] **5.1.** [Редактор/C++] `UPhysicalMaterial` типы: `PM_DebMetal`, `PM_DebWood`, `PM_DebConcrete`, `PM_DebFlesh`, `PM_DebGlass`
+> Каждый материал — это `UPhysicalMaterial` + звук шага + звук/декаль попадания пули (используется позже в 8.8) + заготовка под пропы (модуль 6). Один физматериал = одна цельная единица данных, не разрозненные ассеты.
+
+- [ ] **5.1.** [Редактор/C++] `PM_DebStone` (камень/бетон): создать `UPhysicalMaterial`, назначить тестовой поверхности graybox
   > ИИ: объяснить как физматериал назначается меш-компоненту; разница между surface type и физическим материалом.
-- [ ] **5.2.** [C++] Шаги: SweepSingleByChannel вниз от капсулы → `GetPhysicalMaterial()` → `PlayFootstepSound()`; sprint vs walk (pitch/volume)
-- [ ] **5.3.** [Редактор] Sound Cue / MetaSound для каждой поверхности (random из набора)
-- [ ] **5.4.** [C++] Звук приземления после прыжка
-- [ ] **5.5.** [Опционально] `UDataTable`: `FPhysMatResponseRow` — physmat → звук + декаль + VFX; переиспользуется в модулях 8, 9, 14
+- [ ] **5.2.** [Редактор/C++] `PM_DebMetal` (металл): `UPhysicalMaterial` + тестовая поверхность
+- [ ] **5.3.** [Редактор/C++] `PM_DebWood` (дерево): `UPhysicalMaterial` + тестовая поверхность
+- [ ] **5.4.** [Редактор/C++] `PM_DebPlastic` (пластик): `UPhysicalMaterial` + тестовая поверхность
+- [ ] **5.5.** [Редактор/C++] `PM_DebFlesh` (плоть — тела NPC/игрока, заготовка для модуля 10): `UPhysicalMaterial`
+- [ ] **5.6.** [Редактор/C++] `PM_DebGlass` (стекло — заготовка для разрушаемых объектов модуля 9): `UPhysicalMaterial`
+
+### Звук шагов
+
+- [ ] **5.7.** [C++] Шаги: SweepSingleByChannel вниз от капсулы → `GetPhysicalMaterial()` → `PlayFootstepSound()`; sprint vs walk (pitch/volume)
+- [ ] **5.8.** [Редактор] Sound Cue / MetaSound шага для каждого из 6 базовых материалов (random из набора 2–3 звука на материал)
+- [ ] **5.9.** [C++] Звук приземления после прыжка — также по physmat
+
+### Реакция поверхностей на попадания (заготовка под 8.8/9.5)
+
+- [ ] **5.10.** [C++] `UDataTable`: `FPhysMatResponseRow` (физматериал → звук попадания + декаль + VFX-тег); строка на каждый из 6 материалов; переиспользуется в модулях 8, 9, 13
+- [ ] **5.11.** [Редактор] Декаль попадания для каждого материала (Камень — пыль/скол, Металл — искра/вмятина, Дерево — щепки, Пластик — трещина, Плоть — заготовка под модуль 10, Стекло — заготовка под модуль 9)
 
 ### Substrate
 
-- [ ] **5.6.** [Редактор] Включить Substrate в Project Settings; 1–2 tutorial-материала по официальной доке
-  > ИИ: объяснить чем Substrate отличается от стандартного Material Graph; ссылка на официальную документацию UE 5.7.
-- [ ] **5.7.** [Редактор] Substrate-материал для graybox (бетон / штукатурка / металл)
-- [ ] **5.8.** [Редактор] Связать Substrate-материал с `UPhysicalMaterial` для корректных шагов
-- [ ] **5.9.** [Опционально] Production-библиотека Substrate-материалов (доработка в модуле 18)
+- [ ] **5.12.** [Редактор] Включить Substrate в Project Settings; 1–2 tutorial-материала по официальной доке
+  > ИИ: объяснить чем Substrate отличается от стандартного Material Graph; ссылка на официальную документацию UE 5.8.
+- [ ] **5.13.** [Редактор] Substrate-материал для graybox (камень / штукатурка / металл)
+- [ ] **5.14.** [Редактор] Связать Substrate-материал с `UPhysicalMaterial` для корректных шагов
+- [ ] **5.15.** [Опционально] Production-библиотека Substrate-материалов (доработка в модуле 18)
 
-**Graybox:** разные physmat-зоны на `L_Deb_Building_Graybox` для теста шагов.
+**Graybox:** зоны всех 6 базовых physmat на `L_Deb_Building_Graybox` для теста шагов и попаданий.
 
-**Критерий готовности:** шаги различаются по поверхности; 1–2 Substrate-материала работают; Substrate подключён к physmat.
+**Критерий готовности:** шаги различаются по всем 6 материалам; декаль/звук попадания готовы для каждого через `FPhysMatResponseRow`; 1–2 Substrate-материала работают; Substrate подключён к physmat.
 
 ---
 
 ## Модуль 6: Физические пропы
 
-**Цель:** интерактивные физические объекты — поднять, нести, бросить; корректный сон/пробуждение.
+**Цель:** интерактивные физические объекты — поднять, нести, бросить; вес влияет на возможность поднятия и на звук; корректный сон/пробуждение.
 
-**Результат в PIE:** ящик поднимается, переносится, бросается с импульсом; при ударе о стену звучит звук; ложится спать через 3 сек после остановки.
+**Результат в PIE:** ящик поднимается, переносится, бросается с импульсом; тяжёлый предмет либо не поднимается (только толкается), либо несдвигаем; при ударе о стену звучит звук, который зависит и от силы удара, и от массы; пропы засыпают через 3 сек после остановки.
 
-**Новые концепты:** `UPhysicsHandleComponent`, kinematic vs simulating physics, `OnComponentSleep` / `WakeAllRigidBodies`, tick management.
+**Новые концепты:** `UPhysicsHandleComponent`, kinematic vs simulating physics, `BodyInstance` / `Density` физматериала и автоматический расчёт массы, `bOverrideMass` / `MassInKg`, `OnComponentSleep` / `WakeAllRigidBodies`, tick management.
 
-**Входные условия (обязательны [x]):** 0.5 (COL.3 готов), 4.1 (Interactable задел), 5.1 (physmat для звуков).
+**Входные условия (обязательны [x]):** 0.5 (COL.3 готов), 4.1 (Interactable задел), 5.1–5.6 (physmat для звуков и Density).
 
 **Блокирует:** 9.1 (destructible пропы), 10.9 (NPC толкает пропы), 17.7 (tick off в sleep).
 
 ---
 
-- [ ] **6.1.** [C++] `ADebPhysicalPropActor` — `UStaticMeshComponent` с `ECC_Deb_Prop`; `UPhysicalMaterial` на mesh
-- [ ] **6.2.** [C++] `UPhysicsHandleComponent` — grab/drop/throw; крепление через `GrabComponentAtLocationWithRotation`
+- [ ] **6.1.** [C++] `ADebPhysicalPropActor` — `UStaticMeshComponent` с `ECC_Deb_Prop`; `UPhysicalMaterial` на mesh (один из 6 базовых из модуля 5)
+- [ ] **6.2.** [C++] Масса пропа: проверить авторасчёт массы движком (`Объём меша × Density` физматериала); `bOverrideMass`/`MassInKg` для точечной коррекции там, где авторасчёт даёт нелогичный результат
+  > ИИ: объяснить как UE считает массу `BodyInstance` по объёму и Density физматериала; зачем нужен override, а не всегда доверять авторасчёту.
+- [ ] **6.3.** [C++] `UPhysicsHandleComponent` — grab/drop/throw; крепление через `GrabComponentAtLocationWithRotation`
   > ИИ: объяснить разницу между кинематическим удержанием (PhysicsHandle) и заморозкой physics; почему PhysicsHandle лучше для grab.
-- [ ] **6.3.** [C++] Physics sleep / wake: `OnComponentSleep` → `SetComponentTickEnabled(false)`; `WakeAllRigidBodies` при grab
-- [ ] **6.4.** [C++] Звуки столкновений: `OnComponentHit` → амплитуда от `NormalImpulse`; pitch и volume от импульса + physmat
-- [ ] **6.5.** [Редактор] Input: `IA_DebGrab` — **ЛКМ / RT**; drop — **R / B**; throw — импульс по взгляду
-- [ ] **6.6.** [C++] Коллизия при grab: переключать между `SetSimulatePhysics(false)` для удержания и `true` при броске; не застревать в стенах (offset от камеры)
-- [ ] **6.7.** [Опционально] Классы веса: лёгкий (одной рукой), тяжёлый (медленно), несдвигаемый
-- [ ] **6.8.** [Опционально] Штабелирование объектов (stack stability)
+- [ ] **6.4.** [C++] Гейтинг по массе: `CanGrab()` сравнивает `GetMass()` пропа с порогами из Data Asset/DataTable (`GrabMassThreshold`, `PushOnlyMassThreshold`); ниже порога — поднимается, между порогами — только толкается (физика остаётся симулируемой, PhysicsHandle не хватает), выше верхнего порога — несдвигаем (`Static`/очень большая масса)
+  > ИИ: объяснить почему пороги массы лучше держать в Data Asset, а не хардкодить в C++ (паттерн «логика → C++, параметры → Data Asset»).
+- [ ] **6.5.** [C++] Physics sleep / wake: `OnComponentSleep` → `SetComponentTickEnabled(false)`; `WakeAllRigidBodies` при grab
+- [ ] **6.6.** [C++] Звуки столкновений: `OnComponentHit` → амплитуда от `NormalImpulse` **и** от `GetMass()` (второй множитель — тяжёлый предмет звучит глуше при том же импульсе); pitch/volume через `FPhysMatResponseRow` (5.10)
+- [ ] **6.7.** [Редактор] Input: `IA_DebGrab` — **ЛКМ / RT**; drop — **R / B**; throw — импульс по взгляду
+- [ ] **6.8.** [C++] Коллизия при grab: переключать между `SetSimulatePhysics(false)` для удержания и `true` при броске; не застревать в стенах (offset от камеры)
+- [ ] **6.9.** [Опционально] Штабелирование объектов (stack stability)
 
-**Graybox:** зона Props (5–10 объектов разных размеров) на `L_Deb_Building_Graybox`.
+**Graybox:** зона Props (5–10 объектов разных размеров и материалов) на `L_Deb_Building_Graybox`; среди них минимум один объект за верхним порогом массы (несдвигаемый) и один между порогами (только толкается).
 
-**Критерий готовности:** поднять, нести, бросить; сон/пробуждение; звук удара по поверхности.
+**Критерий готовности:** поднять, нести, бросить — для пропов ниже порога массы; тяжёлые пропы корректно толкаются или не двигаются; сон/пробуждение; звук удара зависит от поверхности и массы.
 
 ---
 
@@ -622,7 +626,7 @@ Private/
 
 **Новые концепты:** `UGameInstanceSubsystem`, `FHitResult`, `WorldType::SweepMultiByChannel`, пробитие через множественные traces, пул декалей, `DrawDebugLine`.
 
-**Входные условия (обязательны [x]):** 7.2 (WeaponBase), 7.4–7.6 (Config с параметрами), 7.9 (ammo), 3.1–3.4 (DamageSystem), 5.1 (physmat для декалей).
+**Входные условия (обязательны [x]):** 7.2 (WeaponBase), 7.4–7.6 (Config с параметрами), 7.9 (ammo), 3.1–3.4 (DamageSystem), 5.1–5.6 (physmat для декалей), 5.10 (DataTable реакций).
 
 **Блокирует:** 9.3 (hitscan → fracture), 11.3 (NPC Fire()), 17.19 (debug hitscan).
 
@@ -636,7 +640,7 @@ Private/
 - [ ] **8.5.** [C++] `ADebWeaponBase::Fire()` → читает `UDebWeaponConfig` → передаёт в `UDebHitscanSubsystem`
 - [ ] **8.6.** [C++] **Shotgun:** `PelletCount` × trace со случайным `SpreadAngle` / `PelletSpread`
 - [ ] **8.7.** [C++] **Auto/Burst:** timer / gate по `RateOfFire`, `BurstCount`
-- [ ] **8.8.** [C++] Эффекты попадания: Niagara из пула (7.23), декаль по physmat из DataTable (5.5)
+- [ ] **8.8.** [C++] Эффекты попадания: Niagara из пула (7.23), декаль по physmat из DataTable (5.10)
 - [ ] **8.9.** [C++] `IDebFireable` реализован и игроком, и NPC — один путь стрельбы
 - [ ] **8.10.** [C++] Интеграция с `IDebDamageable` / `UDebHealthComponent` (модуль 3)
 - [ ] **8.11.** [C++] Тестовые мишени + консольная команда `DebugFire [weapon_type] [count]`
@@ -656,7 +660,7 @@ Private/
 
 **Новые концепты:** `UGeometryCollectionComponent`, Chaos Physics, `AGeometryCollectionActor`, fracture threshold, Chaos Sleep/Wake.
 
-**Входные условия (обязательны [x]):** 8.3 (ExecuteHitscan), 8.10 (ApplyPointDamage), 5.1 (physmat для VFX).
+**Входные условия (обязательны [x]):** 8.3 (ExecuteHitscan), 8.10 (ApplyPointDamage), 5.6 (PM_DebGlass), 5.10 (DataTable для VFX).
 
 **Блокирует:** 17.11 (cleanup обломков).
 
@@ -667,7 +671,7 @@ Private/
 - [ ] **9.2.** [C++] Пороги урона: `DamageThreshold` → накопление → fracture по кластерам
 - [ ] **9.3.** [C++] `ExecuteHitscan` → `ApplyPointDamage` на `ADebDestructibleActor` → GC fracture
 - [ ] **9.4.** [C++] Collision после fracture: debris получает `Deb_Destructible`; COL.6 — не блокирует pawn навсегда
-- [ ] **9.5.** [C++] VFX/SFX разрушения: Niagara (дым, осколки) + звук по physmat из DataTable (5.5)
+- [ ] **9.5.** [C++] VFX/SFX разрушения: Niagara (дым, осколки) + звук по physmat из DataTable (5.10)
 - [ ] **9.6.** [Опционально] Опора: разрушение объекта A → структурный коллапс B
 - [ ] **9.7.** [C++] Очистка / Chaos Sleep обломков через N секунд → `SetSimulatePhysics(false)` или destroy
 
@@ -705,7 +709,7 @@ Private/
 - [ ] **10.11.** [C++] Ragdoll on death: `EnterRagdoll` + контекстный импульс от `FDamageInfo.HitDirection` на кость смерти
 - [ ] **10.12.** [Опционально] Death-poses через Control Rig (поза трупа по ситуации)
 - [ ] **10.13.** [C++] Ragdoll sleep через N сек: фиксировать pose, `SetSimulatePhysics(false)`, tick off
-- [ ] **10.14.** [Опционально][C++] `UPhysicalAnimationComponent` fallback если Control Rig Physics на 5.7.4 нестабилен
+- [ ] **10.14.** [Опционально][C++] `UPhysicalAnimationComponent` fallback если Control Rig Physics (Beta в UE 5.8) даёт нестабильное поведение в твоих сценах
 - [ ] **10.15.** [Опционально][Редактор/C++] Foot IK для NPC: Control Rig → Two Bone IK на ногах; ступни ставятся на поверхность при движении по неровному полу; `FFootIKData` (позиция, нормаль) обновляется через LineTrace вниз от каждой кости стопы раз в такт
 - [ ] **10.16.** [Опционально][Редактор] Motion Matching для NPC: включить плагин `Pose Search`; собрать `UPoseSearchDatabase` с анимациями (Idle, Walk, Run, Alert, Crouch) с аннотациями траектории; заменить Blend Spaces на ноду `Motion Matching` в AnimGraph; `FPoseSearchTrajectoryData` — прогноз траектории из `UCharacterMovementComponent`
   > ИИ: объяснить чем Motion Matching отличается от Blend Space: вместо ручных переходов система сама ищет наиболее подходящую позу по траектории и скорости; Pose Search plugin доступен с UE 5.4+ как production-ready.
@@ -726,7 +730,7 @@ Private/
 
 **Входные условия (обязательны [x]):** 10.1–10.13 (тело NPC), 8.9 (IFireable), 7.16 (Inventory + weapon pickup), 1.9 (VisibilityComponent на игроке).
 
-**Блокирует:** 12.7 (PCG spawns для NPC), 17.10 (оптимизация AI perception).
+**Блокирует:** 15.7 (PCG spawns для NPC), 17.10 (оптимизация AI perception).
 
 ---
 
@@ -775,7 +779,125 @@ Private/
 
 ---
 
-## Модуль 12: PCG — процедурные интерьеры
+## Модуль 12: UI — HUD, меню, настройки, загрузка
+
+**Цель:** полный UI-слой: в игре, пауза, главное меню, настройки KB+геймпад, loading screen.
+
+**Результат в PIE:** меню → New Game → loading screen → игра; Esc/Start — пауза; настройки сохраняются между сессиями.
+
+**Новые концепты:** UMG (`UUserWidget`), `UWidgetComponent`, Widget Blueprints, `FSlateColor`, `SoundMix` / `SoundClass`, `FShaderPipelineCache`, async level loading.
+
+**Входные условия (обязательны [x]):** 2.1 (GameInstance для переходов), 2.4 (PlayerController), 3.2 (HealthComponent делегаты).
+
+**Блокирует:** 13.2 (Sound Mix settings), 14.12 (Music volume settings), 16.3 (Load game → OpenLevel), 17.4 (PSO на loading screen).
+
+---
+
+### HUD (в игре)
+
+- [ ] **12.1.** [C++] Подключить `UMG`, `Slate`, `SlateCore` в `Build.cs`
+- [ ] **12.2.** [C++/Редактор] `UDebHUDWidget`: прицел, патроны (`30 / 120`), здоровье, подсказка взаимодействия, индикатор перезарядки
+- [ ] **12.3.** [C++] Подписка на делегаты: `HealthComponent.OnDamaged`, `InventoryComponent.OnAmmoChanged`, `InteractionComponent.OnTargetChanged`
+- [ ] **12.4.** [C++] Индикатор направления урона (hit marker по yaw угла атаки)
+- [ ] **12.5.** [Опционально] Маркер попадания (crosshair flash при hit)
+- [ ] **12.6.** [C++] Экран смерти: рестарт / загрузка главного меню
+
+### Главное меню
+
+- [ ] **12.7.** [C++/Редактор] `UDebMainMenuWidget`: Новая игра, Продолжить, Настройки, Выход
+- [ ] **12.8.** [C++] Уровень `L_Deb_MainMenu` (пустой уровень, только UI + ambient)
+- [ ] **12.9.** [C++] `ADebGameInstance`: `GoToMainMenu()`, `StartNewGame()`, `LoadGame()`
+
+### Меню паузы
+
+- [ ] **12.10.** [C++/Редактор] `UDebPauseMenuWidget`: Продолжить, Настройки, В главное меню, Выход
+- [ ] **12.11.** [C++] `SetGamePaused(true)`, `SetInputMode UIOnly`, показать курсор
+- [ ] **12.12.** [C++] `IA_DebPause`: **Esc / Start (геймпад)**
+
+### Настройки
+
+- [ ] **12.13.** [C++/Редактор] `UDebSettingsWidget` с вкладками: Звук, Графика, Управление
+- [ ] **12.14.** **Звук:** Master / SFX / Music / UI; `USoundMix` + `USoundClass`
+- [ ] **12.15.** **Графика:** Scalability; пресеты `Deb_High1440p`, `Deb_High1080p`, `Deb_SteamDeck`; разрешение, VSync, FOV
+- [ ] **12.16.** **Управление:** чувствительность мыши и правого стика; инверсия Y; выбор кривых стиков; aim assist on/off
+- [ ] **12.17.** [Опционально] Переназначение клавиш / кнопок геймпада (`IMC` rebinding API)
+- [ ] **12.18.** [C++] Применить / Сброс / Назад → сохранить в `GameInstance` и `SaveGame`
+
+### Экран загрузки
+
+- [ ] **12.19.** [C++/Редактор] `UDebLoadingScreenWidget`: прогресс-бар, статус («Загрузка…», «Компиляция шейдеров…»)
+- [ ] **12.20.** [C++] Логика в `GameInstance`: виджет до завершения загрузки + PSO batch
+- [ ] **12.21.** [C++] Асинхронная загрузка уровня + `GetAsyncLoadPercentage()`
+- [ ] **12.22.** [C++] Переходы: меню → уровень; A → B; загрузка save (16); PCG seed regen (15)
+- [ ] **12.23.** [C++] Минимальное время показа (anti-flicker, мин. 1 сек)
+- [ ] **12.24.** [C++] Прогресс `FShaderPipelineCache` → модуль 17
+- [ ] **12.25.** [Опционально] Советы / lore на экране загрузки
+
+**Критерий готовности:** меню → игра через loading screen; пауза; настройки KB+геймпад сохраняются между сессиями.
+
+---
+
+## Модуль 13: Продвинутый звук (SFX)
+
+**Цель:** от базовых шагов (модуль 5) к физически правдоподобному пространственному звуку.
+
+**Результат в PIE:** выстрел за стеной звучит приглушённо; выстрел в открытом пространстве — гулко; звук оружия слоистый (near/far); настройки громкости работают.
+
+**Новые концепты:** `USoundAttenuation`, `USoundConcurrency`, occlusion через LineTrace + LPF, `UAudioVolume`, MetaSounds Graph для процедурного звука.
+
+**Входные условия (обязательны [x]):** 5.1–5.4 (physmat + base звук), 7.8 (SFX refs в WeaponConfig), 12.14 (Sound Mix + Sound Class).
+
+**Блокирует:** 14.1 (Music Subsystem → Sound Mix).
+
+---
+
+- [ ] **13.1.** [Редактор] Sound Mix и Sound Class иерархия: Master → SFX / Music / UI / Voice
+- [ ] **13.2.** [C++] Связь `UDebSettingsWidget` (12.14) с `SetSoundMixClassOverride`
+- [ ] **13.3.** [C++] Attenuation: `USoundAttenuation` для выстрелов — falloff curve, reverb, air absorption
+  > ИИ: объяснить разницу Attenuation Asset vs Attenuation Settings override; spatial blend 2D vs 3D.
+- [ ] **13.4.** [C++] Occlusion / obstruction: LineTrace между источником и слушателем → `SetLowPassFilterFrequency` за стеной
+- [ ] **13.5.** [C++] Звук оружия послойно (MetaSound): near crack, far tail, reload, dry fire
+- [ ] **13.6.** [C++] Процедурные звуки ударов пропов — улучшение 6.4: pitch + volume от скорости удара
+- [ ] **13.7.** [Редактор] MetaSounds для попаданий по поверхностям: random из набора + pitch рандом
+- [ ] **13.8.** [Blueprint/C++] `AAudioVolume`: реверберация в комнате, эмбиент в коридоре
+- [ ] **13.9.** [Опционально] Слух NPC как отдельная реализация — уточнение от 11.17
+
+**Критерий готовности:** выстрелы с атенюацией и occlusion; громкость из настроек; MetaSound для попаданий.
+
+---
+
+## Модуль 14: Динамический саундтрек
+
+**Цель:** музыка реагирует на состояние игры — exploration/tension/combat.
+
+**Результат в PIE:** при виде NPC музыка переходит в tension; при бое — combat слой с перкуссией; после боя — fade out в exploration.
+
+**Новые концепты:** `UGameInstanceSubsystem` для музыки, слоёная музыка MetaSound, crossfade через `FInterpTo`, state machine для музыки.
+
+**Входные условия (обязательны [x]):** 12.14 (Sound Class для музыки), 13.1 (Sound Mix), 11.18 (bAlertActive в GameState).
+
+**Блокирует:** нет (финальная система).
+
+---
+
+- [ ] **14.1.** [C++] `UDebMusicSubsystem : UGameInstanceSubsystem` — менеджер музыки; живёт как GameInstance
+- [ ] **14.2.** [C++] `EDebMusicState`: `MainMenu / Exploration / Tension / Combat / Death / Victory`
+- [ ] **14.3.** [C++] Подписка на события: `OnEnemySpotted`, `OnCombatStarted`, `OnCombatEnded`, `GameState.bAlertActive`
+- [ ] **14.4.** [Редактор] MetaSounds / слои: base ambient + tension layer + combat percussion
+- [ ] **14.5.** [C++] Логика слоёв: percussion включается при `EnemiesInCombat > 0`; tension при `bAlertActive`
+- [ ] **14.6.** [C++] Crossfade при смене состояния через `FInterpTo` на `VolumeMultiplier`
+- [ ] **14.7.** [C++] Fade in / Fade out при входе в уровень / паузе / смерти
+- [ ] **14.8.** [C++] Приоритеты: Combat > Tension > Exploration; cooldown после боя
+- [ ] **14.9.** [C++] Hysteresis для "Combat ends": не переключать мгновенно, выждать 5 сек тишины
+- [ ] **14.10.** [Редактор] Placeholder-музыка по состояниям (royalty-free или generated)
+- [ ] **14.11.** [C++] Debug: on-screen overlay `EDebMusicState` + активные слои (модуль 17.25)
+- [ ] **14.12.** [C++] Громкость Music из настроек через Sound Class (12.14)
+
+**Критерий готовности:** музыка плавно реагирует на Combat/Exploration/Pause; fade без щелчков.
+
+---
+
+## Модуль 15: PCG — процедурные интерьеры
 
 **Цель:** PCG как **неотъемлемая часть геймплея** — seed-driven layout здания.
 
@@ -791,143 +913,26 @@ Private/
 
 ### Граф и контент
 
-- [ ] **12.1.** [Редактор] PCG plugin в `Build.cs`; PCG Graph: grid / spline → пол + стены + потолок
+- [ ] **15.1.** [Редактор] PCG plugin в `Build.cs`; PCG Graph: grid / spline → пол + стены + потолок
   > ИИ: объяснить ноды PCG Graph: Point Sampler, Spawn Static Mesh, Filter; связь с Spline Actor для коридоров.
-- [ ] **12.2.** [Редактор] Модульные mesh: `SM_DebWall_4x3`, `SM_DebWall_Door`, `SM_DebWall_Corner`, `SM_DebStairs`
-- [ ] **12.3.** [Редактор] Правила генерации: мин. размер комнаты, связность коридоров, высота под crouch
-- [ ] **12.4.** [Редактор] Collision-ready static meshes (Nanite + simplified collision); **COL.7** NavMesh rebuild после generate
+- [ ] **15.2.** [Редактор] Модульные mesh: `SM_DebWall_4x3`, `SM_DebWall_Door`, `SM_DebWall_Corner`, `SM_DebStairs`
+- [ ] **15.3.** [Редактор] Правила генерации: мин. размер комнаты, связность коридоров, высота под crouch
+- [ ] **15.4.** [Редактор] Collision-ready static meshes (Nanite + simplified collision); **COL.7** NavMesh rebuild после generate
 
 ### Интеграция с геймплеем
 
-- [ ] **12.5.** [C++/Редактор] `L_Deb_PCG_Demo` — **основная demo-карта** (заменяет ручной Graybox)
-- [ ] **12.6.** [C++] Seed в `ADebGameMode` / `ADebGameState` — `RegenerateLevel(int32 Seed)`
-- [ ] **12.7.** [Редактор] PCG spawns: `PlayerStart`, NPC spawn points, weapon pickup, patrol spline points
-- [ ] **12.8.** [C++] `ADebGameMode`: параметры сложности (кол-во комнат, 1–4 NPC) передаются в PCG graph через параметры
-- [ ] **12.9.** [C++] После PCG generate: validate NavMesh, инициализировать patrol points, установить `AliveHunterCount`
-- [ ] **12.9b.** [C++] Интеграция лифта с PCG: `ADebElevatorActor::OnPlayerEscaped` → `ADebGameMode::RegenerateLevel(NewSeed)`; новый seed → пересборка PCG-графа → новый этаж → spawn игрока у нового `PlayerStart`
-- [ ] **12.10.** [Редактор] Сравнить PCG vs ручной Graybox по gameplay; PCG — default для demo
-- [ ] **12.11.** [Опционально][C++] Runtime regenerate по seed через dev menu (консольная команда `DebSeed [N]`)
-- [ ] **12.12.** [Опционально] Production PCG-граф: процедурные варианты здания (офис, склад, больница)
+- [ ] **15.5.** [C++/Редактор] `L_Deb_PCG_Demo` — **основная demo-карта** (заменяет ручной Graybox)
+- [ ] **15.6.** [C++] Seed в `ADebGameMode` / `ADebGameState` — `RegenerateLevel(int32 Seed)`
+- [ ] **15.7.** [Редактор] PCG spawns: `PlayerStart`, NPC spawn points, weapon pickup, patrol spline points
+- [ ] **15.8.** [C++] `ADebGameMode`: параметры сложности (кол-во комнат, 1–4 NPC) передаются в PCG graph через параметры
+- [ ] **15.9.** [C++] После PCG generate: validate NavMesh, инициализировать patrol points, установить `AliveHunterCount`
+- [ ] **15.9b.** [C++] Интеграция лифта с PCG: `ADebElevatorActor::OnPlayerEscaped` → `ADebGameMode::RegenerateLevel(NewSeed)`; новый seed → пересборка PCG-графа → новый этаж → spawn игрока у нового `PlayerStart`
+- [ ] **15.10.** [Редактор] Сравнить PCG vs ручной Graybox по gameplay; PCG — default для demo
+- [ ] **15.11.** [Опционально][C++] Runtime regenerate по seed через dev menu (консольная команда `DebSeed [N]`)
+- [ ] **15.12.** [Опционально] Production PCG-граф: процедурные варианты здания (офис, склад, больница)
+- [ ] **15.13.** [Редактор] Регресс-чек: HUD/меню/настройки (12), occlusion и атенюация звука (13), смена музыкальных состояний (14) корректно работают на PCG-карте `L_Deb_PCG_Demo`, не только на ручном graybox
 
-**Критерий готовности:** seed-driven здание; NavMesh; 1–4 NPC работают; полный stealth-combat loop на PCG-карте.
-
----
-
-## Модуль 13: UI — HUD, меню, настройки, загрузка
-
-**Цель:** полный UI-слой: в игре, пауза, главное меню, настройки KB+геймпад, loading screen.
-
-**Результат в PIE:** меню → New Game → loading screen → игра; Esc/Start — пауза; настройки сохраняются между сессиями.
-
-**Новые концепты:** UMG (`UUserWidget`), `UWidgetComponent`, Widget Blueprints, `FSlateColor`, `SoundMix` / `SoundClass`, `FShaderPipelineCache`, async level loading.
-
-**Входные условия (обязательны [x]):** 2.1 (GameInstance для переходов), 2.4 (PlayerController), 3.2 (HealthComponent делегаты).
-
-**Блокирует:** 14.2 (Sound Mix settings), 15.12 (Music volume settings), 16.3 (Load game → OpenLevel), 17.4 (PSO на loading screen).
-
----
-
-### HUD (в игре)
-
-- [ ] **13.1.** [C++] Подключить `UMG`, `Slate`, `SlateCore` в `Build.cs`
-- [ ] **13.2.** [C++/Редактор] `UDebHUDWidget`: прицел, патроны (`30 / 120`), здоровье, подсказка взаимодействия, индикатор перезарядки
-- [ ] **13.3.** [C++] Подписка на делегаты: `HealthComponent.OnDamaged`, `InventoryComponent.OnAmmoChanged`, `InteractionComponent.OnTargetChanged`
-- [ ] **13.4.** [C++] Индикатор направления урона (hit marker по yaw угла атаки)
-- [ ] **13.5.** [Опционально] Маркер попадания (crosshair flash при hit)
-- [ ] **13.6.** [C++] Экран смерти: рестарт / загрузка главного меню
-
-### Главное меню
-
-- [ ] **13.7.** [C++/Редактор] `UDebMainMenuWidget`: Новая игра, Продолжить, Настройки, Выход
-- [ ] **13.8.** [C++] Уровень `L_Deb_MainMenu` (пустой уровень, только UI + ambient)
-- [ ] **13.9.** [C++] `ADebGameInstance`: `GoToMainMenu()`, `StartNewGame()`, `LoadGame()`
-
-### Меню паузы
-
-- [ ] **13.10.** [C++/Редактор] `UDebPauseMenuWidget`: Продолжить, Настройки, В главное меню, Выход
-- [ ] **13.11.** [C++] `SetGamePaused(true)`, `SetInputMode UIOnly`, показать курсор
-- [ ] **13.12.** [C++] `IA_DebPause`: **Esc / Start (геймпад)**
-
-### Настройки
-
-- [ ] **13.13.** [C++/Редактор] `UDebSettingsWidget` с вкладками: Звук, Графика, Управление
-- [ ] **13.14.** **Звук:** Master / SFX / Music / UI; `USoundMix` + `USoundClass`
-- [ ] **13.15.** **Графика:** Scalability; пресеты `Deb_High1440p`, `Deb_High1080p`, `Deb_SteamDeck`; разрешение, VSync, FOV
-- [ ] **13.16.** **Управление:** чувствительность мыши и правого стика; инверсия Y; выбор кривых стиков; aim assist on/off
-- [ ] **13.17.** [Опционально] Переназначение клавиш / кнопок геймпада (`IMC` rebinding API)
-- [ ] **13.18.** [C++] Применить / Сброс / Назад → сохранить в `GameInstance` и `SaveGame`
-
-### Экран загрузки
-
-- [ ] **13.19.** [C++/Редактор] `UDebLoadingScreenWidget`: прогресс-бар, статус («Загрузка…», «Компиляция шейдеров…»)
-- [ ] **13.20.** [C++] Логика в `GameInstance`: виджет до завершения загрузки + PSO batch
-- [ ] **13.21.** [C++] Асинхронная загрузка уровня + `GetAsyncLoadPercentage()`
-- [ ] **13.22.** [C++] Переходы: меню → уровень; A → B; загрузка save (16); PCG seed regen (12)
-- [ ] **13.23.** [C++] Минимальное время показа (anti-flicker, мин. 1 сек)
-- [ ] **13.24.** [C++] Прогресс `FShaderPipelineCache` → модуль 17
-- [ ] **13.25.** [Опционально] Советы / lore на экране загрузки
-
-**Критерий готовности:** меню → игра через loading screen; пауза; настройки KB+геймпад сохраняются между сессиями.
-
----
-
-## Модуль 14: Продвинутый звук (SFX)
-
-**Цель:** от базовых шагов (модуль 5) к физически правдоподобному пространственному звуку.
-
-**Результат в PIE:** выстрел за стеной звучит приглушённо; выстрел в открытом пространстве — гулко; звук оружия слоистый (near/far); настройки громкости работают.
-
-**Новые концепты:** `USoundAttenuation`, `USoundConcurrency`, occlusion через LineTrace + LPF, `UAudioVolume`, MetaSounds Graph для процедурного звука.
-
-**Входные условия (обязательны [x]):** 5.1–5.4 (physmat + base звук), 7.8 (SFX refs в WeaponConfig), 13.14 (Sound Mix + Sound Class).
-
-**Блокирует:** 15.1 (Music Subsystem → Sound Mix).
-
----
-
-- [ ] **14.1.** [Редактор] Sound Mix и Sound Class иерархия: Master → SFX / Music / UI / Voice
-- [ ] **14.2.** [C++] Связь `UDebSettingsWidget` (13.14) с `SetSoundMixClassOverride`
-- [ ] **14.3.** [C++] Attenuation: `USoundAttenuation` для выстрелов — falloff curve, reverb, air absorption
-  > ИИ: объяснить разницу Attenuation Asset vs Attenuation Settings override; spatial blend 2D vs 3D.
-- [ ] **14.4.** [C++] Occlusion / obstruction: LineTrace между источником и слушателем → `SetLowPassFilterFrequency` за стеной
-- [ ] **14.5.** [C++] Звук оружия послойно (MetaSound): near crack, far tail, reload, dry fire
-- [ ] **14.6.** [C++] Процедурные звуки ударов пропов — улучшение 6.4: pitch + volume от скорости удара
-- [ ] **14.7.** [Редактор] MetaSounds для попаданий по поверхностям: random из набора + pitch рандом
-- [ ] **14.8.** [Blueprint/C++] `AAudioVolume`: реверберация в комнате, эмбиент в коридоре
-- [ ] **14.9.** [Опционально] Слух NPC как отдельная реализация — уточнение от 11.17
-
-**Критерий готовности:** выстрелы с атенюацией и occlusion; громкость из настроек; MetaSound для попаданий.
-
----
-
-## Модуль 15: Динамический саундтрек
-
-**Цель:** музыка реагирует на состояние игры — exploration/tension/combat.
-
-**Результат в PIE:** при виде NPC музыка переходит в tension; при бое — combat слой с перкуссией; после боя — fade out в exploration.
-
-**Новые концепты:** `UGameInstanceSubsystem` для музыки, слоёная музыка MetaSound, crossfade через `FInterpTo`, state machine для музыки.
-
-**Входные условия (обязательны [x]):** 13.14 (Sound Class для музыки), 14.1 (Sound Mix), 11.18 (bAlertActive в GameState).
-
-**Блокирует:** нет (финальная система).
-
----
-
-- [ ] **15.1.** [C++] `UDebMusicSubsystem : UGameInstanceSubsystem` — менеджер музыки; живёт как GameInstance
-- [ ] **15.2.** [C++] `EDebMusicState`: `MainMenu / Exploration / Tension / Combat / Death / Victory`
-- [ ] **15.3.** [C++] Подписка на события: `OnEnemySpotted`, `OnCombatStarted`, `OnCombatEnded`, `GameState.bAlertActive`
-- [ ] **15.4.** [Редактор] MetaSounds / слои: base ambient + tension layer + combat percussion
-- [ ] **15.5.** [C++] Логика слоёв: percussion включается при `EnemiesInCombat > 0`; tension при `bAlertActive`
-- [ ] **15.6.** [C++] Crossfade при смене состояния через `FInterpTo` на `VolumeMultiplier`
-- [ ] **15.7.** [C++] Fade in / Fade out при входе в уровень / паузе / смерти
-- [ ] **15.8.** [C++] Приоритеты: Combat > Tension > Exploration; cooldown после боя
-- [ ] **15.9.** [C++] Hysteresis для "Combat ends": не переключать мгновенно, выждать 5 сек тишины
-- [ ] **15.10.** [Редактор] Placeholder-музыка по состояниям (royalty-free или generated)
-- [ ] **15.11.** [C++] Debug: on-screen overlay `EDebMusicState` + активные слои (модуль 17.25)
-- [ ] **15.12.** [C++] Громкость Music из настроек через Sound Class (13.14)
-
-**Критерий готовности:** музыка плавно реагирует на Combat/Exploration/Pause; fade без щелчков.
+**Критерий готовности:** seed-driven здание; NavMesh; 1–4 NPC работают; полный stealth-combat loop на PCG-карте; UI/звук/музыка регресс-проверены на PCG-карте.
 
 ---
 
@@ -939,13 +944,13 @@ Private/
 
 **Новые концепты:** `USaveGame`, `UGameplayStatics::SaveGameToSlot`, сериализация игрового состояния, async save.
 
-**Входные условия (обязательны [x]):** 13.18 (Settings → SaveGame), 2.1 (GameInstance), 12.6 (PCG seed).
+**Входные условия (обязательны [x]):** 12.18 (Settings → SaveGame), 2.1 (GameInstance), 15.6 (PCG seed).
 
 **Блокирует:** нет (поздний модуль).
 
 ---
 
-- [ ] **16.1.** [C++] `UDebSaveGame : USaveGame`: настройки (13) + прогресс игрока
+- [ ] **16.1.** [C++] `UDebSaveGame : USaveGame`: настройки (12) + прогресс игрока
 - [ ] **16.2.** [C++] Чекпоинты: позиция игрока, здоровье, инвентарь, ключевые объекты (двери), PCG seed
   > ИИ: объяснить что сохранять, а что пересоздавать: PCG regenerate по seed лучше чем сохранять весь уровень.
 - [ ] **16.3.** [C++] «Продолжить» → `UGameplayStatics::LoadGameFromSlot` → `GameInstance.OpenLevelWithLoading()`
@@ -1072,8 +1077,8 @@ Private/
 | 6 | `PhysicsCore`, `Chaos` |
 | 8–9 | `Niagara`; `GeometryCollectionEngine` для Chaos GC |
 | 10–11 | `AIModule`, `NavigationSystem`, `ControlRig`, `AnimGraphRuntime` |
-| 12 | plugin `PCG` |
-| 13 | `UMG`, `Slate`, `SlateCore` |
+| 12 | `UMG`, `Slate`, `SlateCore` |
+| 15 | plugin `PCG` |
 
 ---
 
@@ -1084,8 +1089,8 @@ Private/
 | 1.10 | Camera bob при ходьбе |
 | 1.11 | Фонарик (USpotLightComponent, toggle) |
 | 3.5 | Визуальные эффекты ранения |
-| 5.9 | Production-библиотека Substrate-материалов |
-| 6.7, 6.8 | Классы веса пропов, штабелирование |
+| 5.15 | Production-библиотека Substrate-материалов |
+| 6.9 | Штабелирование пропов (stack stability) |
 | 7.21, 7.22 | ADS, weapon sway |
 | 9.6 | Структурный коллапс при разрушении |
 | 10.12 | Control Rig death poses |
@@ -1094,8 +1099,8 @@ Private/
 | 10.16 | Motion Matching для NPC (Pose Search plugin) |
 | 11.10, 11.11, 11.20 | EQS укрытия, групповая тревога, зоны тьмы |
 | 11.22 | Aim assist tuning |
-| 12.11, 12.12 | Runtime PCG regen, production граф |
-| 13.5, 13.17, 13.25 | Hit marker, rebind клавиш, loading tips |
+| 12.5, 12.17, 12.25 | Hit marker, rebind клавиш, loading tips |
+| 15.11, 15.12 | Runtime PCG regen, production граф |
 | 16.4, 16.5 | Автосохранение, несколько слотов |
 | 17.12, 17.24, 17.26, 17.31, 17.32 | Off-screen rig, damage numbers, perf overlay, debug menu, stress map |
 | 18.7 | Screen FX, inspect weapon |
@@ -1123,8 +1128,6 @@ Private/
 **PSO hitch при первой стрельбе** — модули 17.1–17.6; прогон всех VFX/материалов до shipping build.
 
 **MSBuild SetEnv ошибка (UE 5.5+)** — `$(IncludePath)` превышает лимит переменных среды Windows; `Ctrl+Shift+B` падает с `MSB4018: SetEnv`. Решение: в `Microsoft.Cpp.Current.targets` найти блок `<SetEnv>` и установить `Value=""`. Обновления VS могут сбросить патч — проверять после каждого обновления IDE. Live Coding и сборки из редактора UE используют UBT напрямую и обходят MSBuild — работают без патча.
-
-**После миграции 5.7.4 → 5.8** — пересобрать C++ (VS 2022), запустить conversion wizard; пересобрать PSO cache и NavMesh; проверить deprecated API в Control Rig, PCG, Substrate; smoke-тест по разделу «Миграция на UE 5.8».
 
 ---
 
