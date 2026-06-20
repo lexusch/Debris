@@ -73,3 +73,5 @@ Plugins/**/Intermediate/*
 
 # Cache files for the editor to use
 DerivedDataCache/*
+# Git credentials (PAT for push from Cowork) - never commit
+.git-credentials

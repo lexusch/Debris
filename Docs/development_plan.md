@@ -16,8 +16,8 @@
 > ИИ-наставник читает его **первым** при начале каждой сессии.
 
 **Текущий модуль:** 0 — Фундамент  
-**Последний завершённый обязательный пункт:** нет (проект пересоздаётся с нуля на UE 5.8)
-**Следующий шаг:** 0.1
+**Последний завершённый обязательный пункт:** 0.1 (C++ проект Debris создан)
+**Следующий шаг:** 0.2
 
 **Быстрый статус модулей:**
 
@@ -258,7 +258,7 @@ Private/
 | `Deb_Destructible` (object) | Chaos GC meshes | 9 |
 | `BlockAll` / `OverlapOnlyPawn` | Стены graybox | 0 |
 
-- [x] **COL.0.** [C++/Редактор] Модуль 0: завести trace-каналы и collision presets в `DefaultEngine.ini` / Project Settings
+- [ ] **COL.0.** [C++/Редактор] Модуль 0: завести trace-каналы и collision presets в `DefaultEngine.ini` / Project Settings
 - [ ] **COL.1.** [C++/Редактор] Модуль 0: таблица «кто с кем блокируется / overlap» → `LEARNING.md`
 - [ ] **COL.2.** [C++] Модуль 4: interaction trace только на `ECC_Deb_Interactable`
 - [ ] **COL.3.** [C++] Модуль 6: пропы — `ECC_Deb_Prop`, корректный `CollisionEnabled` при grab/sleep
@@ -307,7 +307,7 @@ Private/
 
 ### Проект
 
-- [ ] **0.1.** [Редактор] C++ проект **Debris**, модуль `Debris` (Blank проект, scalable графика, C++ пресет)
+- [x] **0.1.** [Редактор] C++ проект **Debris**, модуль `Debris` (Blank проект, scalable графика, C++ пресет)
 - [ ] **0.2.** Структура каталогов C++ и `Content/Debris/` (см. раздел выше)
 - [ ] **0.3.** [C++] `Debris.Build.cs`: `EnhancedInput`, `InputCore`
 - [ ] **0.4.** [Git] `.gitignore` по расширенному списку; проверить `git status` — в индексе только `Content/`, `Config/`, `Source/`, `*.uproject`, docs
