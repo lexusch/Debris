@@ -312,47 +312,39 @@ Private/
 - [x] **0.1.** [Редактор] C++ проект **Debris**, модуль `Debris` (Blank проект, scalable графика, C++ пресет)
 - [ ] **0.2.** Проверить корневые `Content/Debris/` и `Source/Debris/` (создаются автоматически визардом проекта); детальную структуру (см. «Иерархия каталогов» выше) создавать по мере необходимости через редактор, не заранее
 - [ ] **0.3.** [C++] `Debris.Build.cs`: `EnhancedInput`, `InputCore`
-- [ ] **0.4.** [Git] `.gitignore` по расширенному списку; проверить `git status` — в индексе только `Content/`, `Config/`, `Source/`, `*.uproject`, docs
-  * **UE:** `Binaries/`, `Intermediate/`, `Saved/`, `DerivedDataCache/`, `Build/*`
-  * **IDE:** `.vs/`, `.vscode/`, `.idea/`
-  * **Visual Studio:** `*.VC.db`, `*.VC.opendb`, `*.suo`, `*.opensdf`, `*.sdf`, `.vsconfig`
-  * **Генерируемое:** `*.sln`, `*.slnx`, `*.xcodeproj`, `*.xcworkspace`, `Automation_*.slnx`, `shadertoolsconfig.json`
-  * **Плагины/tools:** `Plugins/VisualStudioTools/`
-  * **Прочее:** `*.log`, `*.dmp`, `*.tmp`
-  * **Дополнительно:** `Saved/Autosaves/`, `Saved/Collections/`, `Content/Developers/`, `.DS_Store`, `Thumbs.db`
 
 ### Коллизии
 
-- [ ] **0.5.** [C++/Редактор] Trace-каналы и object types (см. COL.0–COL.1)
-- [ ] **0.6.** [Редактор] Collision presets: `Deb_Pawn`, `Deb_WorldStatic`
+- [ ] **0.4.** [C++/Редактор] Trace-каналы и object types (см. COL.0–COL.1)
+- [ ] **0.5.** [Редактор] Collision presets: `Deb_Pawn`, `Deb_WorldStatic`
 
 ### Input — клавиатура + геймпад
 
-- [ ] **0.7.** [C++] `ADebPlayerCharacter` — наследник `ACharacter`; капсула и movement уже в базовом классе; не добавлять камеру и input здесь (это модули 1 и 0.11).
+- [ ] **0.6.** [C++] `ADebPlayerCharacter` — наследник `ACharacter`; капсула и movement уже в базовом классе; не добавлять камеру и input здесь (это модули 1 и 0.10).
   > ИИ: объяснить иерархию ACharacter → APawn → AActor; зачем наследоваться от ACharacter, а не AActor.
-- [ ] **0.8.** [Редактор] Input Actions: `IA_DebMove` (Vector2D), `IA_DebLook` (Vector2D), `IA_DebJump` (Digital)
+- [ ] **0.7.** [Редактор] Input Actions: `IA_DebMove` (Vector2D), `IA_DebLook` (Vector2D), `IA_DebJump` (Digital)
   > ИИ: объяснить разницу между старой Input System и Enhanced Input; что такое Input Action и зачем Vector2D для Move/Look.
-- [ ] **0.9.** [Редактор] `IMC_DebDefault`: **KB** — WASD, мышь, Space
-- [ ] **0.10.** [Редактор] `IMC_DebDefault`: **геймпад** — Left Stick Move, Right Stick Look, A/Cross Jump, RT/R2 — задел Fire (модуль 7)
-- [ ] **0.11.** [C++] `AddMappingContext`; `BindAction` Move / Look / Jump
+- [ ] **0.8.** [Редактор] `IMC_DebDefault`: **KB** — WASD, мышь, Space
+- [ ] **0.9.** [Редактор] `IMC_DebDefault`: **геймпад** — Left Stick Move, Right Stick Look, A/Cross Jump, RT/R2 — задел Fire (модуль 7)
+- [ ] **0.10.** [C++] `AddMappingContext`; `BindAction` Move / Look / Jump
   > ИИ: объяснить где вызывать AddMappingContext (BeginPlay через PlayerController или Character); почему важно передавать Priority.
-- [ ] **0.12.** [C++] Обработка `Look`: и мышь, и правый стик (Enhanced Input Vector2D)
-- [ ] **0.13.** [Blueprint] `BP_DebPlayer` — наследник `ADebPlayerCharacter`; назначить `DefaultPawnClass` в GameMode
+- [ ] **0.11.** [C++] Обработка `Look`: и мышь, и правый стик (Enhanced Input Vector2D)
+- [ ] **0.12.** [Blueprint] `BP_DebPlayer` — наследник `ADebPlayerCharacter`; назначить `DefaultPawnClass` в GameMode
 
 ### GameMode
 
-- [ ] **0.14.** [C++] `ADebGameMode`, `ADebPlayerController`
+- [ ] **0.13.** [C++] `ADebGameMode`, `ADebPlayerController`
   > ИИ: объяснить зачем отдельный PlayerController уже на этом этапе (задел для модуля 2 и 13); Gameplay Framework в целом.
-- [ ] **0.15.** [Blueprint] `BP_DebGameMode`
-- [ ] **0.16.** [Редактор] `GlobalDefaultGameMode = BP_DebGameMode`; `GameDefaultMap = L_Deb_Arena_v0`
-- [ ] **0.17.** [Редактор] PIE: spawn `BP_DebPlayer` через `PlayerStart`
+- [ ] **0.14.** [Blueprint] `BP_DebGameMode`
+- [ ] **0.15.** [Редактор] `GlobalDefaultGameMode = BP_DebGameMode`; `GameDefaultMap = L_Deb_Arena_v0`
+- [ ] **0.16.** [Редактор] PIE: spawn `BP_DebPlayer` через `PlayerStart`
 
 ### Graybox v0
 
-- [ ] **0.18.** [Редактор] `L_Deb_Arena_v0`: одна комната + коридор; проверка коллизий капсулы и геймпада
-- [ ] **0.19.** [C++] Отладка: `#define DEBUG_TRACES` — задел для отладочных визуализаций
-- [ ] **0.20.** [Редактор] PSO — задел к модулю 17: включить `r.ShaderPipelineCache.Enabled=1`
-- [ ] **0.21.** `LEARNING.md` — первая запись: что изучено, какие проблемы возникли
+- [ ] **0.17.** [Редактор] `L_Deb_Arena_v0`: одна комната + коридор; проверка коллизий капсулы и геймпада
+- [ ] **0.18.** [C++] Отладка: `#define DEBUG_TRACES` — задел для отладочных визуализаций
+- [ ] **0.19.** [Редактор] PSO — задел к модулю 17: включить `r.ShaderPipelineCache.Enabled=1`
+- [ ] **0.20.** `LEARNING.md` — первая запись: что изучено, какие проблемы возникли
 
 **Критерий готовности:** PIE на v0; WASD + мышь + геймпад (move/look/jump); коллизии работают; персонаж не проваливается.
 
@@ -366,7 +358,7 @@ Private/
 
 **Новые концепты:** `UCameraComponent`, `USpringArmComponent`, `UCurveFloat`, `bUseControllerRotationYaw`, First Person Rendering, `UCharacterMovementComponent` параметры, camera offset lean, `FInterpTo`.
 
-**Входные условия (обязательны [x]):** 0.7, 0.11, 0.13, 0.14, 0.18.
+**Входные условия (обязательны [x]):** 0.6, 0.10, 0.12, 0.13, 0.17.
 
 **Блокирует:** 7.18 (obstruction trace), 11.12 (visibility points), 11.20 (тёмные зоны + фонарик).
 
@@ -403,7 +395,7 @@ Private/
 
 **Новые концепты:** `UGameInstance` (живёт всю сессию), `AGameState` (реплицируется всем), `APlayerController` vs `APawn`, разделение ответственности в Gameplay Framework.
 
-**Входные условия (обязательны [x]):** 0.14, 0.15, 0.16, 0.17.
+**Входные условия (обязательны [x]):** 0.13, 0.14, 0.15, 0.16.
 
 **Блокирует:** 11.0 (GameState для AlertActive), 15.6 (seed в GameMode), 12.9 (переходы через GameInstance), 16.1 (SaveGame через GameInstance).
 
@@ -429,7 +421,7 @@ Private/
 
 **Новые концепты:** `IInterface` в UE5, `UActorComponent`, `DECLARE_DYNAMIC_MULTICAST_DELEGATE`, `ApplyPointDamage` / `ApplyDamage` UE framework, `FPointDamageEvent`.
 
-**Входные условия (обязательны [x]):** 0.7, 0.14.
+**Входные условия (обязательны [x]):** 0.6, 0.13.
 
 **Блокирует:** 8.10 (hitscan → damage), 10.1 (NPC health), 11.9 (BT блокировка при stagger).
 
@@ -456,7 +448,7 @@ Private/
 
 **Новые концепты:** `IInterface` для интерактивных объектов, `LineTraceSingleByChannel`, `ECC_Deb_Interactable`, trace debugging.
 
-**Входные условия (обязательны [x]):** 0.5 (COL.2 готов), 0.7, 0.11.
+**Входные условия (обязательны [x]):** 0.4 (COL.2 готов), 0.6, 0.10.
 
 **Блокирует:** 6.2 (grab через interaction), 7.16 (подбор оружия), 11.5 (NPC видит оружие), 15.9b (лифт → PCG regenerate).
 
@@ -487,7 +479,7 @@ Private/
 
 **Новые концепты:** `UPhysicalMaterial`, foot trace pattern, `USoundCue`, `UDataTable` для маппинга материал→звук, Substrate шейдерная модель.
 
-**Входные условия (обязательны [x]):** 0.5, 0.6, 1.4 (sprint/crouch для разных звуков).
+**Входные условия (обязательны [x]):** 0.4, 0.5, 1.4 (sprint/crouch для разных звуков).
 
 **Блокирует:** 6.4 (звук столкновений пропов от physmat + массы), 8.8 (эффекты попаданий по physmat), 9.5 (VFX разрушений по physmat), 13.3 (spatial audio).
 
@@ -538,7 +530,7 @@ Private/
 
 **Новые концепты:** `UPhysicsHandleComponent`, kinematic vs simulating physics, `BodyInstance` / `Density` физматериала и автоматический расчёт массы, `bOverrideMass` / `MassInKg`, `OnComponentSleep` / `WakeAllRigidBodies`, tick management.
 
-**Входные условия (обязательны [x]):** 0.5 (COL.3 готов), 4.1 (Interactable задел), 5.1–5.6 (physmat для звуков и Density).
+**Входные условия (обязательны [x]):** 0.4 (COL.3 готов), 4.1 (Interactable задел), 5.1–5.6 (physmat для звуков и Density).
 
 **Блокирует:** 9.1 (destructible пропы), 10.9 (NPC толкает пропы), 17.7 (tick off в sleep).
 
@@ -571,7 +563,7 @@ Private/
 
 **Новые концепты:** `UPrimaryDataAsset`, `FireMode` enum, `FAmmoConfig`, `IInterface` для wielder, `AnimMontage` + `AnimNotify`, `UInventoryComponent`.
 
-**Входные условия (обязательны [x]):** 0.7, 0.8, 1.1 (GripPoint сокет), 1.8 (obstruction trace), 3.2 (HealthComponent задел).
+**Входные условия (обязательны [x]):** 0.6, 0.7, 1.1 (GripPoint сокет), 1.8 (obstruction trace), 3.2 (HealthComponent задел).
 
 **Блокирует:** 8.5 (Fire → hitscan), 11.3 (NPC стреляет), 11.5 (NPC подбирает оружие).
 
@@ -995,7 +987,7 @@ Private/
 
 ### PSO Pipeline Cache
 
-- [ ] **17.1.** [Редактор] `r.ShaderPipelineCache.Enabled=1`, `SaveUserCache=1` (задел — 0.20)
+- [ ] **17.1.** [Редактор] `r.ShaderPipelineCache.Enabled=1`, `SaveUserCache=1` (задел — 0.19)
 - [ ] **17.2.** [Редактор] Сбор `.upipelinecache` в dev: пройти все системы (стрельба, VFX, Niagara, Quixel)
 - [ ] **17.3.** [Редактор] Чеклист ассетов для прогрева: материалы, Niagara, post-process, Quixel Megascans
 - [ ] **17.4.** [C++] Runtime-прогрев на loading screen (13.24): `FShaderPipelineCache::OpenPipelineFileCache`
